@@ -1,0 +1,268 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#fff5f5">
+  <title>Gửi những người bạn thương mến </title>
+  <style>
+    :root{--ink:#593b50;--pink:#ef7694;--cream:#fff8f1;--rose:#ffe3e7}
+    *{box-sizing:border-box} body{margin:0;min-height:100vh;color:var(--ink);font-family:ui-rounded,"Segoe UI",system-ui,sans-serif;background:radial-gradient(ellipse at 50% 34%,#fff 0,#fff7f2 48%,#ffe9ed 100%);overflow-x:hidden}
+    .wrap{min-height:100vh;display:flex;flex-direction:column;align-items:center;padding:38px 20px 28px;text-align:center}
+    .eyebrow{margin:0;color:#b77e91;font-size:.83rem;letter-spacing:.17em;text-transform:uppercase;font-weight:700}
+    h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(2.4rem,6vw,4.5rem);line-height:1.08;margin:13px 0 9px;color:#9d536e}
+    .sub{margin:0;max-width:570px;font-size:1rem;color:#82677a;line-height:1.65}
+    .stage{position:relative;width:min(1000px,96vw);height:min(740px,76vh);min-height:510px;margin:16px auto 4px;display:grid;place-items:center}
+    .halo{position:absolute;width:min(400px,62vw);aspect-ratio:1;border-radius:50%;background:radial-gradient(circle,#ffe9ed 0,#fff0ef 44%,transparent 72%);animation:breathe 4s ease-in-out infinite;pointer-events:none}
+    @keyframes breathe{50%{transform:scale(1.09);opacity:.75}}
+    .flower-button{position:relative;z-index:3;width:210px;height:250px;border:0;background:transparent;cursor:pointer;filter:drop-shadow(0 15px 18px #cb71844a);transition:transform .35s}
+    .flower-button:hover{transform:scale(1.06) rotate(-3deg)} .flower-button:focus-visible{outline:3px solid #c85f7e;outline-offset:8px;border-radius:40%}
+    .flower{position:absolute;inset:20px 4px 12px;transform:scale(.93);transition:transform .8s cubic-bezier(.2,.8,.2,1)}
+    .petal{position:absolute;left:50%;top:39%;width:65px;height:105px;margin:-52px 0 0 -32px;border-radius:52% 52% 45% 45%;transform-origin:50% 90%;background:linear-gradient(145deg,#ffb3c3,#ee7195 72%,#d9527a);box-shadow:inset 7px 3px 12px #fff8, inset -5px -7px 12px #b9386450}
+    .petal:nth-child(1){transform:rotate(0deg) translateY(-30px)}.petal:nth-child(2){transform:rotate(45deg) translateY(-30px)}.petal:nth-child(3){transform:rotate(90deg) translateY(-30px)}.petal:nth-child(4){transform:rotate(135deg) translateY(-30px)}.petal:nth-child(5){transform:rotate(180deg) translateY(-30px)}.petal:nth-child(6){transform:rotate(225deg) translateY(-30px)}.petal:nth-child(7){transform:rotate(270deg) translateY(-30px)}.petal:nth-child(8){transform:rotate(315deg) translateY(-30px)}
+    .center{position:absolute;left:50%;top:39%;width:57px;height:57px;margin:-28px;border-radius:50%;background:radial-gradient(circle at 38% 34%,#fff2b4,#f6bd4d 50%,#e99a35);box-shadow:0 0 0 5px #ffdb8c55}
+    .stem{position:absolute;left:50%;top:55%;width:10px;height:117px;margin-left:-5px;border-radius:10px;background:linear-gradient(90deg,#64a878,#9acc89,#478c61);transform:rotate(-2deg)}
+    .leaf{position:absolute;top:66%;left:52%;width:58px;height:28px;border-radius:100% 0 100% 0;background:linear-gradient(140deg,#a9d98d,#4e9b6b);transform:rotate(-22deg)}.leaf.two{left:22%;top:72%;transform:scaleX(-1) rotate(-22deg)}
+    .flower-button.open .flower{transform:scale(.68) rotate(15deg)}
+    .memory{position:absolute;z-index:2;width:clamp(58px,8vw,88px);aspect-ratio:.78;border:5px solid white;border-bottom-width:17px;border-radius:6px;background:#f3dbe0;box-shadow:0 8px 20px #773d5130;overflow:hidden;opacity:0;transform:translate(-50%,-50%) scale(.35) rotate(var(--rot,0deg));transition:opacity .65s,transform .8s cubic-bezier(.15,.8,.25,1);pointer-events:none}
+    .memory img{width:100%;height:100%;object-fit:cover;display:block}.memory.visible{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(var(--rot,0deg))}
+    .message{position:absolute;z-index:4;left:50%;top:50%;width:min(340px,76vw);padding:17px 20px;border-radius:18px;background:#fffdf5ed;box-shadow:0 10px 35px #83505b24;opacity:0;transform:translate(-50%,-30%) scale(.9);transition:.45s;pointer-events:none;font-family:Georgia,serif;font-size:1.1rem;line-height:1.5;color:#9d536e}.message.show{opacity:1;transform:translate(-50%,-50%) scale(1)}
+    .inner-card{display:none;width:min(760px,94vw);margin:14px auto 32px;padding:26px;border:1px solid #f2cbd3;border-radius:24px;background:linear-gradient(145deg,#fffefa,#fff0f1);box-shadow:0 16px 40px #7e405019;animation:card-in .7s both}
+    .inner-card.show{display:block}@keyframes card-in{from{opacity:0;transform:translateY(20px) scale(.97)}to{opacity:1;transform:translateY(0) scale(1)}}
+    .inner-card h2{font:500 clamp(1.7rem,4vw,2.4rem) Georgia,serif;color:#9d536e;margin:0 0 7px}.inner-card>p{color:#8a7080;margin:0 0 20px}
+    .friend-list{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.friend-card{padding:0;border:1px solid #f0c8d2;border-radius:15px;background:#fff;overflow:hidden;color:#835168;cursor:pointer;box-shadow:0 5px 14px #8a496412;transition:transform .2s,box-shadow .2s}.friend-card:hover,.friend-card.active{transform:translateY(-4px);box-shadow:0 10px 22px #8a496426}.friend-thumb{display:grid;place-items:center;aspect-ratio:1;background:linear-gradient(145deg,#ffe5e9,#fff5dc);font-size:2rem}.friend-thumb img{width:100%;height:100%;object-fit:cover}.friend-name{display:block;padding:10px 5px;font-weight:700;font-size:.9rem}
+    .friend-detail{display:none;grid-template-columns:minmax(150px, .8fr) 1.2fr;gap:18px;align-items:center;text-align:left;margin-top:22px;padding:17px;border-radius:18px;background:#fff;animation:card-in .35s both}.friend-detail.show{display:grid}.friend-photo{width:100%;aspect-ratio:1;object-fit:cover;border-radius:13px;background:#fff0f1}.friend-placeholder{display:grid;place-items:center;color:#bd8498;font-size:.9rem;text-align:center;padding:16px}.wish-area h3{margin:0 0 12px;color:#9d536e;font:500 1.25rem Georgia,serif}.wish-list{display:grid;gap:10px}.wish-item{padding:12px 14px;border-radius:13px;background:#fff4f5;border:1px solid #f6dce2}.wish-item p{margin:0;color:#6e5262;line-height:1.5}.wish-item span{display:block;margin-top:7px;text-align:right;color:#ad6a83;font-size:.85rem;font-weight:700}
+    #flowerBurst{position:fixed;inset:0;width:100%;height:100%;z-index:1000;pointer-events:none}
+    .controls{display:flex;align-items:center;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:-6px;z-index:5}
+    .btn{border:0;border-radius:999px;padding:13px 20px;font:600 .95rem inherit;cursor:pointer;transition:transform .2s,box-shadow .2s}.btn:hover{transform:translateY(-2px);box-shadow:0 8px 18px #a14f6826}.primary{background:#a95672;color:white}.secondary{background:#fff;color:#93546b;border:1px solid #f0ccd5}.hint{font-size:.85rem;color:#a18491;margin:12px 0 0}.file-input{display:none}.sparkle{position:fixed;pointer-events:none;color:#e898ad;animation:float 5s linear infinite;opacity:.6}@keyframes float{to{transform:translateY(-110vh) rotate(240deg);opacity:0}}
+    @media(max-width:560px){.wrap{padding-top:28px}.stage{width:100vw;height:68vh;min-height:480px;margin-top:10px}.flower-button{transform:scale(.75)}.memory{width:clamp(49px,13vw,66px);border-width:4px;border-bottom-width:13px}.inner-card{padding:19px 13px}.friend-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.friend-detail{grid-template-columns:1fr;text-align:center}.friend-photo{max-height:230px;object-fit:contain}.wish-area textarea{text-align:left}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <canvas id="flowerBurst" aria-hidden="true"></canvas>
+  <main class="wrap">
+    <p class="eyebrow">20 · 10 · Ngày Phụ nữ Việt Nam</p>
+    <h1>Chúc chị em nhà mình</h1>
+    <p class="sub">Có một bó hoa nhỏ dành tặng mọi người.<br>Bấm vào bông hoa để mở những kỷ niệm của chúng ta nhé!</p>
+    <section class="stage" aria-label="Bông hoa và những bức ảnh kỷ niệm">
+      <div class="halo"></div>
+      <div class="photos" id="photos" aria-live="polite"></div>
+      <button class="flower-button" id="flower" aria-label="Mở bó hoa kỷ niệm" aria-expanded="false">
+        <span class="flower"><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="petal"></i><i class="center"></i></span>
+        <i class="stem"></i><i class="leaf"></i><i class="leaf two"></i>
+      </button>
+      <div class="message" id="message">Chúc những người bạn tuyệt vời của mình luôn vui vẻ, xinh đẹp và được yêu thương! </div>
+    </section>
+    <p class="hint" id="hint">Bấm vào bông hoa để mở album kỷ niệm ✨</p>
+    <section class="inner-card" id="innerCard" aria-live="polite">
+      <h2>Mỗi người 1 thiệp</h2>
+      <p>Chọn tên của bạn để mở thiệp nhé.</p>
+      <div class="friend-list" id="friendList"></div>
+      <div class="friend-detail" id="friendDetail">
+        <div id="friendPhotoWrap"></div>
+        <div class="wish-area">
+          <h3 id="wishTitle">Lời chúc dành cho bạn</h3>
+          <div class="wish-list" id="wishList"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <script>
+    const flower = document.querySelector('#flower');
+    const photos = document.querySelector('#photos');
+    const message = document.querySelector('#message');
+    const hint = document.querySelector('#hint');
+    const innerCard = document.querySelector('#innerCard');
+    const friendList = document.querySelector('#friendList');
+    const friendDetail = document.querySelector('#friendDetail');
+    const friendPhotoWrap = document.querySelector('#friendPhotoWrap');
+    const wishTitle = document.querySelector('#wishTitle');
+    const wishList = document.querySelector('#wishList');
+    const flowerCanvas = document.querySelector('#flowerBurst');
+    const flowerContext = flowerCanvas.getContext('2d');
+    const flowerColors = ['#f17c9c', '#ffb5c5', '#d99be8', '#fff1f4', '#f49bba'];
+    let flowers = [];
+    let flowerFrame = 0;
+    function resizeFlowerCanvas() {
+      const ratio = Math.min(window.devicePixelRatio || 1, 1.5);
+      flowerCanvas.width = Math.round(window.innerWidth * ratio);
+      flowerCanvas.height = Math.round(window.innerHeight * ratio);
+      flowerContext.setTransform(ratio, 0, 0, ratio, 0, 0);
+    }
+    resizeFlowerCanvas();
+    window.addEventListener('resize', resizeFlowerCanvas);
+    function drawFlower(flower) {
+      flowerContext.save();
+      flowerContext.translate(flower.x, flower.y);
+      flowerContext.rotate(flower.rotation);
+      flowerContext.globalAlpha = Math.max(0, flower.life);
+      flowerContext.fillStyle = flower.color;
+      for (let petal = 0; petal < 5; petal++) {
+        const angle = (Math.PI * 2 * petal) / 5;
+        flowerContext.beginPath();
+        flowerContext.arc(Math.cos(angle) * flower.size * .7, Math.sin(angle) * flower.size * .7, flower.size * .48, 0, Math.PI * 2);
+        flowerContext.fill();
+      }
+      flowerContext.globalAlpha = Math.max(0, flower.life);
+      flowerContext.fillStyle = '#ffd56b';
+      flowerContext.beginPath(); flowerContext.arc(0, 0, flower.size * .38, 0, Math.PI * 2); flowerContext.fill();
+      flowerContext.restore();
+    }
+    function animateFlowers() {
+      flowerContext.clearRect(0, 0, window.innerWidth, window.innerHeight);
+      flowers = flowers.filter(flower => flower.life > 0);
+      flowers.forEach(flower => {
+        flower.x += flower.vx; flower.y += flower.vy;
+        flower.vy += .025; flower.vx *= .997; flower.vy *= .997;
+        flower.rotation += flower.spin; flower.life -= flower.fade;
+        drawFlower(flower);
+      });
+      if (flowers.length) flowerFrame = requestAnimationFrame(animateFlowers);
+      else { flowerFrame = 0; flowerContext.clearRect(0, 0, window.innerWidth, window.innerHeight); }
+    }
+    function burstFlowers(fromCard) {
+      const bounds = fromCard.getBoundingClientRect();
+      const originX = bounds.left + bounds.width / 2;
+      const originY = bounds.top + bounds.height / 2;
+      flowers = Array.from({ length: 2000 }, () => {
+        const angle = Math.random() * Math.PI * 2;
+        const speed = 1.2 + Math.random() * 8;
+        return {
+          x: originX, y: originY,
+          vx: Math.cos(angle) * speed, vy: Math.sin(angle) * speed - 2,
+          size: 2.2 + Math.random() * 3.4,
+          color: flowerColors[Math.floor(Math.random() * flowerColors.length)],
+          rotation: Math.random() * Math.PI * 2,
+          spin: (Math.random() - .5) * .08,
+          life: 1, fade: .003 + Math.random() * .0015,
+        };
+      });
+      if (!flowerFrame) animateFlowers();
+    }
+    let revealTimer;
+    // Đổi tên, ảnh và 3 lời chúc của từng người tại đây.
+    // Người nhận chỉ xem lời chúc; trên trang không có ô nhập.
+    const friends = [
+      { name: 'Hang Ngo', photo: 'images/Hangg.jpg', wishes: [
+        { from: 'Đinh Trường Giang', text: '20/10 chúc Bắp luôn xinh gái mạnh khỏe sớm thành người mẫu' },
+        { from: 'Người dzai nhất', text: 'Chúc Hngo 20/10 vui vẻ, ngày càng xinh đẹp, học giỏi, luôn gặp nhiều may mắn và sớm đạt được những điều mình mong muốn nhé.' },
+        { from: 'Nguyễn Mạnh Dũng', text: 'Nhân ngày 20/10, chúc Hngo luôn xinh xắn, vui vẻ và gặp được nhiều người tốt. Mong cậu lúc nào cũng giữ được năng lượng tích cực, học hành thuận lợi và sớm đạt được những điều mình mong muốn' },
+      ] },
+      { name: 'Tr M Dung', photo: 'images/Md.jpg', wishes: [
+        { from: 'Đinh Trường Giang', text: '20/10 chúc Bà luôn vui vẻ mạnh khỏe hạnh phúc sớm ra trường và lấy đại gia!' },
+        { from: 'Người dzai nhất', text: 'Chúc Tr M Dung ngày 20/10 thật nhiều niềm vui, luôn xinh xắn, đáng yêu, tiền vào như nước, lúc nào cũng vui vẻ và hạnh phúc nhé' },
+        { from: 'Nguyễn Mạnh Dũng', text: 'Chúc mọi dự định của bạn đều thuận lợi và thành công!' },
+      ] },
+      { name: 'Tr Khanh Thu', photo: 'images/KThu.jpg', wishes: [
+        { from: 'Đinh Trường Giang', text: '20/10 chúc Thư tránh được tình cũ và tình mới đến như mưa' },
+        { from: 'Người dzai nhất', text: 'Chúc KhanhThu 20/10 luôn xinh đẹp, rạng rỡ, gặp toàn điều tốt đẹp, học tập thuận lợi và sớm thành công trên con đường mình chọn nhé' },
+        { from: 'Nguyễn Mạnh Dũng', text: 'Chúc tkthu một ngày 20/10 thật vui vẻ và ý nghĩa Mong luôn tự tin với bản thân, làm được những điều mình thích, gặp nhiều may mắn và mọi dự định đều diễn ra suôn sẻ' },
+      ] },
+      { name: 'Ph Thuy Trang', photo: 'images/TrangT.jpg', wishes: [
+        { from: 'Đinh Trường Giang', text: '20/10 chúc Trang luôn vui vẻ làm ăn phát tài sớm lấy chồng nhé' },
+        { from: 'Người dzai nhất', text: 'Chúc Pham T Trang ngày 20/10 thật vui vẻ, luôn xinh đẹp, tự tin, gặp nhiều may mắn, không chỉ hôm nay mà ngày nào cũng được yêu thương và chiều chuộng nhé' },
+        { from: 'Nguyễn Mạnh Dũng', text: '20/10 vui vẻ phTrang luôn mạnh khỏe, bình an, ngày càng xinh đẹp và có thật nhiều niềm vui. Hy vọng thời gian tới sẽ gặp nhiều chuyện tốt, ít muộn phiền và lúc nào cũng tươi' },
+      ] },
+      { name: 'Huong Giang', photo: 'images/Chip.jpg', wishes: [
+        { from: 'Đinh Trường Giang', text: '20/10 chúc Chip luôn chăm chỉ học hành đáng yêu sớm lừa đại gia bao các bạn' },
+        { from: 'Người dzai nhất', text: 'Chúc Hg 20/10 vui vẻ, ngày càng xinh đẹp, luôn tươi cười, gặp nhiều điều may mắn, tiền tài rủng rỉnh và sớm thực hiện được mọi ước mơ nhé' },
+        { from: 'Nguyễn Mạnh Dũng', text: 'Chúc chip 20/10 thật vui nhé, mong m luôn có nhiều niềm vui trong cuộc sống, công việc học tập thuận lợi và mọi chuyện đều như ý. Chúc m ngày càng xinh đẹp, luôn được mọi người yêu quý và có thêm thật nhiều kỷ niệm đẹp' },
+      ] },
+    ];
+    friends.forEach((friend, index) => {
+      const button = document.createElement('button');
+      button.type = 'button'; button.className = 'friend-card';
+      button.innerHTML = `<span class="friend-thumb">💌</span><span class="friend-name"></span>`;
+      button.querySelector('.friend-name').textContent = friend.name;
+      button.addEventListener('click', () => {
+        burstFlowers(button);
+        friendList.querySelectorAll('.friend-card').forEach(card => card.classList.remove('active'));
+        button.classList.add('active');
+        friendPhotoWrap.replaceChildren();
+        const img = document.createElement('img'); img.className = 'friend-photo'; img.src = friend.photo; img.alt = `Ảnh của ${friend.name}`;
+        img.onerror = () => { friendPhotoWrap.innerHTML = '<div class="friend-photo friend-placeholder">Thêm ảnh riêng vào thư mục images<br>và cập nhật đường dẫn trong friends</div>'; };
+        friendPhotoWrap.append(img);
+        wishTitle.textContent = `Lời chúc dành cho ${friend.name}`;
+        wishList.replaceChildren(...friend.wishes.map(wish => {
+          const item = document.createElement('article'); item.className = 'wish-item';
+          const text = document.createElement('p'); text.textContent = wish.text;
+          const from = document.createElement('span'); from.textContent = `— ${wish.from}`;
+          item.append(text, from); return item;
+        }));
+        friendDetail.classList.add('show');
+      });
+      friendList.append(button);
+    });
+    // Thêm ảnh vào thư mục images, sau đó ghi đường dẫn tương đối ở đây.
+    // Ví dụ: 'images/anh-nhom-1.jpg'
+    const imagePaths = [
+      'images/3.jpg',
+     'images/IMG_3467.jpg',
+     'images/IMG_3469.jpg',
+     'images/IMG_3470.jpg',
+     'images/IMG_3471.jpg',
+     'images/IMG_3472.jpg',
+     'images/IMG_3473.jpg',
+     'images/IMG_3474.jpg',
+     'images/IMG_3475.jpg',
+     'images/IMG_3476.jpg',
+     'images/IMG_3477.jpg',
+     'images/IMG_4326.jpg',
+     'images/IMG_7719.jpg',
+     'images/IMG_8891.jpg',
+     'images/IMG_3466.jpg',
+     'images/IMG_3465.jpg',
+     'images/IMG_3462.jpg',
+     'images/1HMLJ0I17_90EBIA.jpg',
+     'images/1HV7CKJRJ_A8DOK0.jpg',
+     'images/1HV7ELHGJ_909DD6.jpg',
+     'images/1HV7ENS99_6AEI0Q.jpg',
+     'images/att._7PPz7hHK1S95ZYslTGd94eDFM0iahnigM_PYU57Mx4.jpg',
+     'images/quality_restoration_20260812121401086.jpg',
+      'images/1.jpg',
+      'images/2.jpg',
+      'images/4.jpg',
+      'images/6.jpg',
+      'images/7.jpg',
+      'images/8.jpg',
+      'images/9.jpg',
+      'images/10.jpg',
+      'images/11.jpg',
+      'images/12.jpg',
+      'images/13.jpg',
+      'images/14.jpg',
+    ];
+    let opened = false;
+    photos.replaceChildren(...imagePaths.map((url, i) => {
+      const card = document.createElement('div'); card.className = 'memory';
+      // Use up to three rings so 20–25 photos have room around the flower.
+      const perRing = 9;
+      const ring = Math.floor(i / perRing);
+      const ringStart = ring * perRing;
+      const ringCount = Math.min(perRing, imagePaths.length - ringStart);
+      const angle = ((i - ringStart) / ringCount) * Math.PI * 2 - Math.PI / 2 + (ring % 2) * Math.PI / perRing;
+      const radiusX = [43, 33, 23][ring] ?? 43;
+      const radiusY = [43, 35, 28][ring] ?? 43;
+      card.style.left = `${50 + radiusX * Math.cos(angle)}%`;
+      card.style.top = `${50 + radiusY * Math.sin(angle)}%`;
+      card.style.setProperty('--rot', `${Math.round(Math.sin(angle) * 12)}deg`);
+      const img = document.createElement('img'); img.src = url; img.alt = `Ảnh kỷ niệm ${i + 1}`;
+      card.append(img); return card;
+    }));
+    flower.addEventListener('click', () => {
+      opened = !opened; flower.classList.toggle('open', opened); flower.setAttribute('aria-expanded', String(opened)); message.classList.toggle('show', opened);
+      clearTimeout(revealTimer);
+      innerCard.classList.remove('show');
+      [...photos.children].forEach((card, i) => setTimeout(() => card.classList.toggle('visible', opened), opened ? i * 100 : 0));
+      if (opened) {
+        const revealDelay = Math.max(0, (photos.children.length - 1) * 100 + 800);
+        revealTimer = setTimeout(() => innerCard.classList.add('show'), revealDelay);
+      }
+      hint.textContent = opened ? 'Một chút kỷ niệm, thật nhiều thương mến 💗' : 'Bấm vào bông hoa để mở album kỷ niệm ✨';
+    });
+    for (let i=0;i<9;i++){const s=document.createElement('span');s.className='sparkle';s.textContent=['✦','✧','❀'][i%3];s.style.left=(5+Math.random()*90)+'vw';s.style.bottom='-24px';s.style.animationDelay=(Math.random()*6)+'s';s.style.animationDuration=(5+Math.random()*5)+'s';document.body.append(s);}
+  </script>
+</body>
+</html>
+
